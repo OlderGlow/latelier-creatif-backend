@@ -36,6 +36,7 @@ app.post('/mail', (req, res) => {
             port: process.env.NODE_NODEMAILER_API_PORT,
             secure: false, // true for 465, false for other ports
             auth: {
+              type: 'OAuth2',
               user: process.env.NODE_NODEMAILER_API_USERNAME,
               pass: process.env.NODE_NODEMAILER_API_PASSWORD,
             },
