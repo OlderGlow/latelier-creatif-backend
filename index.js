@@ -23,7 +23,7 @@ const port = 5000
 require("./routes/categories.route")(app);
 
 app.get('/', (req, res) => {
-  res.send('Backend for Atelier Créatif')
+  res.send(process.env.NODE_NODEMAILER_API_SMTP)
 })
 
 app.post('/mail', (req, res) => {
