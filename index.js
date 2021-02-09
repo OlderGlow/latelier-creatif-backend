@@ -53,8 +53,8 @@ app.post('/mail', (req, res) => {
 })
 
 
-app.listen(port, () => {
-  console.log(`Serveur lancé sur le port http://localhost:${port}`)
+app.listen(process.env.PORT, () => {
+  console.log(`Serveur lancé sur le port ${process.env.PORT}`)
 })
 
 const auth = () => {
