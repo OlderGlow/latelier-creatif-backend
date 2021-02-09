@@ -6,6 +6,8 @@ module.exports = mongoose => {
         description: String,
         categorie: String,
         published: Boolean,
+        date: Date,
+        lieu: String
       },
       { timestamps: true }
     );
@@ -16,6 +18,6 @@ module.exports = mongoose => {
       return object;
     });
   
-    const categorieDb = mongoose.model("Categories", schema);
-    return categorieDb;
+    const evenementDb = mongoose.model("Evenements", schema);
+    return evenementDb;
   };

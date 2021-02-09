@@ -1,5 +1,5 @@
 const db = require("../models/mongoose");
-const categorieDb = db.ateldb;
+const evenementDb = db.ateldb;
 
 exports.create = (req, res) => {
     if (!req.body.title) {
@@ -9,16 +9,18 @@ exports.create = (req, res) => {
         return;
     }
 
-    const categorie = new categorieDb({
+    const evenement = new evenementDb({
         title: req.body.title,
         image: req.body.image,
         description: req.body.description,
         categorie: req.body.categorie,
-        published: req.body.published ? req.body.published : false
+        published: req.body.published ? req.body.published : false,
+        date: req.body.date ? req.body.date : null,
+        lieu: req.body.lieu
     });
 
-    categorie
-        .save(categorie)
+    evenement
+        .save(evenement)
         .then(data => {
             res.send(data);
         })
@@ -38,27 +40,7 @@ exports.findAll = (req, res) => {
         }
     } : {};
 
-    categorieDb.find(condition)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Une erreur est survenue lors de la recherche en base de données."
-            });
-        });
-};
-
-exports.findByCategorie = (req, res) => {
-    const categorie = req.query.categorie;
-    var condition = categorie ? {
-        categorie: {
-            $regex: new RegExp(categorie),
-            $options: "i"
-        }
-    } : {};
-
-    categorieDb.find(condition)
+    evenementDb.find(condition)
         .then(data => {
             res.send(data);
         })
@@ -72,7 +54,7 @@ exports.findByCategorie = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    categorieDb.findById(id)
+    evenementDb.findById(id)
         .then(data => {
             if (!data)
                 res.status(404).send({
@@ -98,7 +80,7 @@ exports.update = (req, res) => {
 
     const id = req.params.id;
 
-    categorieDb.findByIdAndUpdate(id, req.body, {
+    evenementDb.findByIdAndUpdate(id, req.body, {
             useFindAndModify: false
         })
         .then(data => {
@@ -120,7 +102,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    categorieDb.findByIdAndRemove(id)
+    evenementDb.findByIdAndRemove(id)
         .then(data => {
             if (!data) {
                 res.status(404).send({
@@ -140,7 +122,7 @@ exports.delete = (req, res) => {
 };
 
 exports.deleteAll = (req, res) => {
-    categorieDb.deleteMany({})
+    evenementDb.deleteMany({})
         .then(data => {
             res.send({
                 message: `${data.deletedCount} objets ont été supprimé(s)`
