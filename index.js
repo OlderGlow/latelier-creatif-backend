@@ -23,7 +23,7 @@ const port = 5000
 require("./routes/categories.route")(app);
 
 app.get('/', (req, res) => {
-  res.send(process.env.NODE_NODEMAILER_API_SMTP)
+  res.send(``)
 })
 
 app.post('/mail', (req, res) => {
