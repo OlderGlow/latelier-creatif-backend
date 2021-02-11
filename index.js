@@ -23,7 +23,7 @@ const port = 5000
 require("./routes/categories.route")(app);
 
 app.get('/', (req, res) => {
-  res.send(``)
+  res.send(`hey`)
 })
 
 app.post('/mail', (req, res) => {
@@ -54,8 +54,8 @@ app.post('/mail', (req, res) => {
 })
 
 
-app.listen(process.env.PORT, () => {
-  console.log(`Serveur lancé sur le port ${process.env.PORT}`)
+app.listen(process.env.PORT || port, () => {
+  console.log(`Serveur lancé sur le port ${process.env.PORT || port}`)
 })
 
 const auth = () => {
