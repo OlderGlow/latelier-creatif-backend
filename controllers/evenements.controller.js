@@ -1,5 +1,5 @@
 const db = require("../models/mongoose");
-const evenementDb = db.ateldb;
+const evenementDb = db.evedb;
 
 exports.create = (req, res) => {
     if (!req.body.title) {

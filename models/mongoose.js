@@ -7,5 +7,6 @@ const db = {};
 db.mongoose = mongoose;
 db.url = dbConfig.url;
 db.ateldb = require("./categories.model")(mongoose);
+db.evedb = require("./evenements.model")(mongoose);
 
 module.exports = db
