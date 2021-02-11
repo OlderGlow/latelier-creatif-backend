@@ -14,6 +14,7 @@ module.exports = app => {
 
     router.post("/evenements", evenement.create);
     router.get("/evenements", evenement.findAll);
+    router.get("/evenements/search", categorie.findByCategorie);
     router.get("/evenements/:id", evenement.findOne);
     router.put("/evenements/:id", evenement.update);
     router.delete("/evenements/:id", evenement.delete);

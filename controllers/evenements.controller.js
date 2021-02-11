@@ -51,6 +51,26 @@ exports.findAll = (req, res) => {
         });
 };
 
+exports.findByCategorie = (req, res) => {
+    const categorie = req.query.categorie;
+    var condition = categorie ? {
+        categorie: {
+            $regex: new RegExp(categorie),
+            $options: "i"
+        }
+    } : {};
+
+    evenementDb.find(condition)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Une erreur est survenue lors de la recherche en base de données."
+            });
+        });
+};
+
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
