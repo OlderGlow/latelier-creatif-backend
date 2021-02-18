@@ -58,7 +58,7 @@ exports.findByCategorie = (req, res) => {
         }
     } : {};
 
-    categorieDb.find(condition)
+    categorieDb.find(condition).sort({'createdAt': -1})
         .then(data => {
             res.send(data);
         })
