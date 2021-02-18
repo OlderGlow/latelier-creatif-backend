@@ -40,7 +40,7 @@ exports.findAll = (req, res) => {
         }
     } : {};
 
-    evenementDb.find(condition)
+    evenementDb.find(condition).sort({'createdAt': -1})
         .then(data => {
             res.send(data);
         })
@@ -60,7 +60,7 @@ exports.findByCategorie = (req, res) => {
         }
     } : {};
 
-    evenementDb.find(condition)
+    evenementDb.find(condition).sort({'createdAt': -1})
         .then(data => {
             res.send(data);
         })
