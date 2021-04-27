@@ -76,7 +76,7 @@ exports.findOne = (req, res) => {
         .then(data => {
             if (!data)
                 res.status(404).send({
-                    message: "Nous n'avons pas trouvé d'objet à montrer avec l'id= " + id
+                    message: "Nous n'avons pas trouvé d'objets à montrer avec l'id= " + id
                 });
             else res.send(data);
         })
