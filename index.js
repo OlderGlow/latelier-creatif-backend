@@ -23,7 +23,7 @@ const port = 5000
 require("./routes/categories.route")(app);
 
 app.get('/', (req, res) => {
-  res.send(`hey`)
+  res.send(`Welcome to l'Atelier Creatif API !`)
 })
 
 app.post('/mail', (req, res) => {
