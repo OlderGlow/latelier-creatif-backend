@@ -16,7 +16,8 @@ module.exports = mongoose => {
       object.id = _id;
       return object;
     });
-    schema.plugin(mongoosePaginate)
+    schema.plugin(mongoosePaginate);
     const categorieDb = mongoose.model("Categories", schema);
     return categorieDb;
+
   };

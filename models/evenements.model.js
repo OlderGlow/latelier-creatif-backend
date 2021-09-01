@@ -1,3 +1,4 @@
+const mongoosePaginate = require('mongoose-paginate-v2');
 module.exports = mongoose => {
     var schema = mongoose.Schema(
       {
@@ -17,7 +18,7 @@ module.exports = mongoose => {
       object.id = _id;
       return object;
     });
-  
+    schema.plugin(mongoosePaginate);
     const evenementDb = mongoose.model("Evenements", schema);
     return evenementDb;
   };
