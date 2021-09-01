@@ -156,17 +156,3 @@ exports.delete = (req, res) => {
             });
         });
 };
-
-exports.deleteAll = (req, res) => {
-    categorieDb.deleteMany({})
-        .then(data => {
-            res.send({
-                message: `${data.deletedCount} objets ont été supprimé(s)`
-            });
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Une erreur est survenue lors de la suppression"
-            });
-        });
-};
