@@ -1,6 +1,13 @@
 const db = require("../models/mongoose");
 const evenementDb = db.evedb;
 
+
+const getPagination = (page, size) => {
+    const limit = size ? +size : 6;
+    const offset = page ? page * limit : 0;
+  
+    return { limit, offset };
+  };
 exports.create = (req, res) => {
     if (!req.body.title) {
         res.status(400).send({
@@ -32,43 +39,54 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    const title = req.query.title;
-    var condition = title ? {
-        title: {
-            $regex: new RegExp(title),
-            $options: "i"
-        }
-    } : {};
+    const { page, size, title } = req.query;
+    var condition = title
+    ? { title: { $regex: new RegExp(title), $options: "i" } }
+    : {};
 
-    evenementDb.find(condition).sort({'createdAt': -1})
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Une erreur est survenue lors de la recherche en base de données."
-            });
-        });
+    const { limit, offset } = getPagination(page, size);
+
+    evenementDb.paginate(condition, { offset, limit, sort: {'createdAt': -1} })
+    .then((data) => {
+      res.send({
+        totalItems: data.totalDocs,
+        items: data.docs,
+        totalPages: data.totalPages,
+        currentPage: data.page - 1,
+      });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Une erreur est survenue lors de la recherche en base de données.",
+      });
+    });
 };
 
-exports.findByCategorie = (req, res) => {
-    const categorie = req.query.categorie;
-    var condition = categorie ? {
-        categorie: {
-            $regex: new RegExp(categorie),
-            $options: "i"
-        }
-    } : {};
 
-    evenementDb.find(condition).sort({'createdAt': -1})
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Une erreur est survenue lors de la recherche en base de données."
-            });
-        });
+exports.findByCategorie = (req, res) => {
+    const { page, size, categorie } = req.query;
+    var condition = categorie
+    ? { categorie: { $regex: new RegExp(categorie), $options: "i" } }
+    : {};
+
+    const { limit, offset } = getPagination(page, size);
+
+    evenementDb.paginate(condition, { offset, limit, sort: {'createdAt': -1} })
+    .then((data) => {
+      res.send({
+        totalItems: data.totalDocs,
+        items: data.docs,
+        totalPages: data.totalPages,
+        currentPage: data.page - 1,
+      });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Une erreur est survenue lors de la recherche en base de données.",
+      });
+    });
 };
 
 exports.findOne = (req, res) => {
