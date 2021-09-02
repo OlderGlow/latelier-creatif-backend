@@ -41,7 +41,7 @@ app.post('/mail', (req, res) => {
               pass: process.env.NODE_NODEMAILER_API_PASSWORD,
             },
           });
-        
+
           let info = await transporter.sendMail({
             from: req.body.email, // sender address
             to: "dext.1234@gmail.com", // list of receivers
